@@ -1,0 +1,26 @@
+services:
+    # Facade Services
+    user.service:
+        class: Klac\AppBundle\Service\UserService
+        arguments: ["@user.data_manager", '@service_container']
+
+    order.service:
+        class: Klac\AppBundle\Service\OrderService
+        arguments: ["@order.data_manager", '@service_container']
+
+    # Data Manager services
+    user.data_manager:
+        class: Klac\AppBundle\DataManager\UserDataManager
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    order.data_manager:
+        class: Klac\AppBundle\DataManager\OrderDataManager
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    # Voters
+    user.user_voter:
+        class: Klac\AppBundle\Security\UserVoter
+        arguments: ['@security.access.decision_manager']
+        public: false
+        tags:
+            - { name: security.voter }

@@ -1,0 +1,52 @@
+# Learn more about services, parameters and containers at
+# https://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    # default configuration for services in *this* file
+#    _defaults:
+#        # automatically injects dependencies in your services
+#        autowire: true
+#        # automatically registers your services as commands, event subscribers, etc.
+#        autoconfigure: true
+#        # this means you cannot fetch services directly from the container via $container->get()
+#        # if you need to do this, you can override this setting on individual services
+#        public: false
+
+    #Timestampable Listener
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+#        get_set_method_normalizer:
+#            class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+#            public: false
+#            tags:
+#                - { name: serializer.normalizer }
+
+    # Hybrid Request Converter
+    jms_serializer.doctrine_object_constructor_exception_fallback:
+        parent: jms_serializer.doctrine_object_constructor
+        arguments:
+            index_2: 'exception'
+
+    jms_serializer.extended_serializer:
+        parent: jms_serializer.serializer
+        arguments:
+            index_2: '@jms_serializer.doctrine_object_constructor_exception_fallback'
+
+    fos_rest.extended_serializer:
+        class: 'FOS\RestBundle\Serializer\JMSSerializerAdapter'
+        arguments: ['@jms_serializer.extended_serializer']
+
+    hybrid_request_converter:
+        class: Klac\CoreBundle\Request\HybridRequestConverter
+        parent: fos_rest.converter.request_body
+        tags:
+            - { name: request.param_converter, priority: false, converter: hybrid_request_converter }
+        arguments:
+            index_0: '@fos_rest.extended_serializer'

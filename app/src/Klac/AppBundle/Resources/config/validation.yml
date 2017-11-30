@@ -1,0 +1,18 @@
+FOS\UserBundle\Model\User:
+    properties:
+        email:
+            - Email:
+                message: The email "{{ value }}" is not a valid email.
+                checkMX: true
+                groups: ['create', 'update']
+            - NotBlank:
+                message: The email can not be empty
+                groups: ['create', 'update']
+        username:
+            - NotBlank:
+                message: The username can not be empty
+                groups: [create]
+        plainPassword:
+            - NotBlank:
+                message: The password can not be empty
+                groups: [create]

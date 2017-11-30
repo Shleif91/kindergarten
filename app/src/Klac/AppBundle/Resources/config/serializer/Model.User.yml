@@ -1,0 +1,11 @@
+FOS\UserBundle\Model\User:
+    properties:
+        username:
+            groups: ['brief_view', 'create', 'update', 'view_user']
+            type: 'string'
+        plainPassword:
+            groups: ['create', 'update']
+            type: 'string'
+        email:
+            groups: ['brief_view', 'create', 'update', 'view_user']
+            type: 'string'

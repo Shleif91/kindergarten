@@ -1,0 +1,19 @@
+app:
+    resource: "@KlacAppBundle/Controller/"
+    type: annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+api:
+    resource: "@KlacApiBundle/Controller/"
+    type: annotation
+    prefix: /api
+    defaults: {_format: json}
+
+api_login_check:
+    path: /api/login
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /doc

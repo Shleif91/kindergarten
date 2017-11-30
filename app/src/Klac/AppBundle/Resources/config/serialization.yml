@@ -1,0 +1,6 @@
+Klac\AppBundle\Entity\User:
+    attributes:
+        username:
+            groups: ['brief_view']
+        email:
+            groups: ['brief_view']

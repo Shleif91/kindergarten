@@ -17,7 +17,7 @@ services:
       - ./app:/var/www
     working_dir: /var/www
     environment: 
-      XDEBUG_CONFIG: remote_host=192.168.0.101 #Подставить свой удаленный IP
+      XDEBUG_CONFIG: remote_host=192.168.1.43 #Подставить свой удаленный IP
       PHP_IDE_CONFIG: "serverName=docker"
       DATABASE_NAME: kg
       DATABASE_USER: root

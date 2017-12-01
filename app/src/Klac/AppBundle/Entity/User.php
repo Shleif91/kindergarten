@@ -75,22 +75,6 @@ class User extends BaseUser
     protected $sex;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Klac\AppBundle\Entity\Order", mappedBy="users")
-     *
-     * @Serializer\Groups({"view_user"})
-     */
-    protected $orders;
-
-    /**
-     * User constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->orders = new ArrayCollection();
-    }
-
-    /**
      * @return int
      */
     public function getAge()
@@ -169,24 +153,6 @@ class User extends BaseUser
     public function setSex($sex)
     {
         $this->sex = $sex;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOrders()
-    {
-        return $this->orders;
-    }
-
-    /**
-     * @param mixed $orders
-     * @return User
-     */
-    public function setOrders($orders)
-    {
-        $this->orders = $orders;
         return $this;
     }
 }
